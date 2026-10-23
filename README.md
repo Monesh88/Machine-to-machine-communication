@@ -1,97 +1,155 @@
-
-# Dual-Axis Solar Tracking System 🌞
+# Machine-to-Machine (M2M) Communication Using ESP32 and Firebase
 
 ## 📌 Project Overview
 
-The Dual-Axis Solar Tracking System is an Arduino-based project that automatically adjusts a solar panel's horizontal and vertical orientation according to sunlight intensity. It uses four LDR (Light Dependent Resistor) sensors and two servo motors to track the direction of maximum light.
+This project demonstrates **Machine-to-Machine (M2M) communication** using an ESP32 microcontroller, a DHT11 temperature and humidity sensor, Wi-Fi connectivity, and Firebase Realtime Database.
 
-## 🎯 Objectives
-
-- Detect sunlight intensity using LDR sensors.
-- Track sunlight along horizontal and vertical axes.
-- Automatically control servo motor positions using Arduino.
-- Improve solar panel alignment with incoming sunlight.
+The ESP32 collects temperature and humidity readings from the DHT11 sensor and transmits the sensor data to Firebase Realtime Database over Wi-Fi. The data is updated at regular intervals, enabling remote monitoring of environmental conditions.
 
 ## 🎥 Project Demonstration
 
-Watch the working demonstration of my Dual-Axis Solar Tracking System:
+Watch the video demonstration of the Machine-to-Machine Communication project using ESP32, DHT11, Wi-Fi, and Firebase Realtime Database.
 
-[▶️ Click here to watch the project video](https://res.cloudinary.com/kz8f12pj/video/upload/v1792754273/WhatsApp_Video_2026-10-23_at_3.08.21_PM_1.mp4)
+[▶️ **Video Link 1:** [Watch the Project Demonstration](https://res.cloudinary.com/kz8f12pj/video/upload/v1792756344/WhatsApp_Video_2026-10-23_at_3.08.21_PM.mp4)
+▶️ [Watch Video 2 — Project Demonstration](https://res.cloudinary.com/kz8f12pj/video/upload/v1792756686/WhatsApp_Video_2026-10-23_at_2.30.28_PM.mp4)
 
-<video src="https://res.cloudinary.com/kz8f12pj/video/upload/v1792754273/WhatsApp_Video_2026-10-23_at_3.08.21_PM_1.mp4" controls></video>
+*The demonstration video will show sensor data collection, Wi-Fi connectivity, and uploading temperature and humidity readings to Firebase Realtime Database.*
 
-## 🛠️ Components Used
+## 🎯 Objectives
 
-- Arduino board
-- 4 LDR sensors
-- 2 servo motors
-- Solar panel and mounting structure
+- Implement wireless communication using the ESP32.
+- Measure temperature and humidity using the DHT11 sensor.
+- Transmit sensor readings to Firebase Realtime Database.
+- Enable remote access to sensor data through a cloud database.
+- Demonstrate IoT-based M2M communication.
+
+## 🛠️ Hardware Requirements
+
+- ESP32 development board
+- DHT11 temperature and humidity sensor
+- USB cable for programming and power
+- Wi-Fi network
 - Connecting wires
-- Suitable power supply
 
-## 🔌 Hardware Connections
+## 💻 Software and Technologies
 
-| Component | Arduino Pin |
+- Arduino IDE
+- Embedded C/C++ (Arduino framework)
+- ESP32 Wi-Fi library
+- FirebaseESP32 library
+- DHT sensor library
+- Firebase Realtime Database
+
+## 🔌 Circuit Connections
+
+| DHT11 Pin | ESP32 Connection |
 |---|---|
-| Horizontal servo signal | Digital Pin 2 |
-| Vertical servo signal | Digital Pin 13 |
-| Bottom-left LDR | A0 |
-| Bottom-right LDR | A3 |
-| Top-left LDR | A1 |
-| Top-right LDR | A2 |
+| VCC | 3.3V (check your sensor module specifications) |
+| GND | GND |
+| DATA | GPIO 4 |
+
+**Note:** If using a bare DHT11 sensor rather than a sensor module, an appropriate pull-up resistor may be required on the data line.
 
 ## ⚙️ Working Principle
 
-1. Four LDR sensors measure the light intensity from different directions.
-2. The Arduino reads the analog sensor values.
-3. The program calculates average readings for the top, bottom, left, and right directions.
-4. It compares the readings using a tolerance threshold.
-5. When the difference exceeds the threshold, the Arduino adjusts the servo motors.
-6. The process repeats continuously to align the panel with the strongest detected light.
+1. The ESP32 initializes serial communication and connects to the configured Wi-Fi network.
+2. The DHT11 sensor is initialized to measure temperature and relative humidity.
+3. The ESP32 reads the sensor measurements.
+4. The readings are uploaded to Firebase Realtime Database.
+5. Temperature and humidity values are stored at the following database paths:
+   - `/Sensor/Temperature`
+   - `/Sensor/Humidity`
+6. The process repeats every two seconds.
 
-## 💻 Technologies Used
-
-- Arduino
-- Embedded C/C++
-- LDR sensor interfacing
-- Servo motor control
-- Analog input processing
-- Arduino Servo Library
-
-## 🚀 Key Features
-
-- Automatic two-axis light tracking
-- Real-time LDR sensor monitoring
-- Servo-based position adjustment
-- Adjustable tracking tolerance
-- Arduino-based embedded control
-
-## 📂 Project Structure
+## ☁️ Firebase Database Structure
 
 ```text
-Dual-Axis-Solar-Tracking-System/
-├── README.md
-├── DualAxisSolarTracking.ino
-└── images/
-    └── project-setup.jpg
+Firebase Realtime Database
+└── Sensor
+    ├── Temperature: 28.5
+    └── Humidity: 65.0
 ```
+
+*The values shown above are illustrative examples, not actual sensor readings.*
+
+## 🔑 Configuration
+
+Before uploading the code, configure the following parameters in the Arduino sketch:
+
+```cpp
+#define WIFI_SSID "Your_SSID"
+#define WIFI_PASSWORD "Your_PASSWORD"
+#define API_KEY "Your_API_Key"
+#define DATABASE_URL "https://your-database.firebaseio.com/"
+```
+
+Replace the placeholders with your Wi-Fi credentials, Firebase Web API key, and the correct Realtime Database URL.
+
+### Setup Requirements
+
+1. Create a Firebase project.
+2. Enable Firebase Realtime Database.
+3. Obtain the required API key and database URL.
+4. Install the ESP32 board package in Arduino IDE.
+5. Install the required Firebase and DHT libraries.
+6. Configure the Wi-Fi credentials and Firebase parameters.
+7. Select the correct ESP32 board and COM port.
+8. Upload the program and open Serial Monitor at **115200 baud**.
+
+**Security:** Do not commit real Wi-Fi passwords, private credentials, or sensitive configuration details to a public repository. Use placeholders in the published source code.
+
+## 📊 Expected Output
+
+When the ESP32 connects to Wi-Fi and successfully uploads both sensor readings, the Serial Monitor displays:
+
+```text
+Data updated successfully
+```
+
+If either Firebase database update fails, the program displays:
+
+```text
+Error updating data
+```
+
+The latest temperature and humidity values can then be viewed in Firebase Realtime Database.
+
+## 🌍 Applications
+
+- Environmental monitoring
+- Smart home automation
+- IoT-based sensor monitoring
+- Remote temperature and humidity tracking
+- Cloud-connected embedded systems
+- Industrial monitoring and automation prototypes
+
+## 🚀 Future Improvements
+
+- Add real-time graphs and dashboards.
+- Integrate alerts for temperature or humidity thresholds.
+- Add multiple sensor nodes.
+- Implement sensor-reading validation and reconnection handling.
+- Improve Firebase authentication and database security.
+- Build a mobile or web application for remote monitoring.
 
 ## 📚 Learning Outcomes
 
-- Understanding embedded system programming
-- Interfacing analog sensors with Arduino
-- Controlling servo motors
-- Implementing sensor-based feedback logic
-- Developing an automated solar tracking application
+- ESP32 programming and GPIO interfacing
+- Temperature and humidity sensing
+- Wi-Fi-based embedded communication
+- Cloud database integration
+- IoT and M2M communication concepts
+- Debugging and monitoring embedded systems
 
-## 👨‍💻 Author
+## 👨‍💻 Project Information
 
-**Monesh Jankar**
-
-B.Tech – Electronics and Telecommunication Engineering
-
-Interested in Embedded Systems, Electronics Hardware, and Firmware Development.
+**Project Name:** Machine-to-Machine Communication Using ESP32 and Firebase  
+**Domain:** Embedded Systems and Internet of Things (IoT)  
+**Microcontroller:** ESP32  
+**Communication:** Wi-Fi  
+**Cloud Platform:** Firebase Realtime Database  
+**Sensor:** DHT11
 
 ---
 
-⭐ If you find this project interesting, feel free to explore the code and demonstration video.
+*This project is developed for educational purposes to demonstrate sensor data acquisition and cloud-based M2M communication.*
