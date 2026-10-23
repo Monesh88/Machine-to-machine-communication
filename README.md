@@ -6,6 +6,15 @@ This project demonstrates **Machine-to-Machine (M2M) communication** using an ES
 
 The ESP32 collects temperature and humidity readings from the DHT11 sensor and transmits the sensor data to Firebase Realtime Database over Wi-Fi. The data is updated at regular intervals, enabling remote monitoring of environmental conditions.
 
+## 🎥 Project Demonstration
+
+Watch the video demonstration of the Machine-to-Machine Communication project using ESP32, DHT11, Wi-Fi, and Firebase Realtime Database.
+
+[▶️ **Video Link 1:** [Watch the Project Demonstration](https://res.cloudinary.com/kz8f12pj/video/upload/v1792756344/WhatsApp_Video_2026-10-23_at_3.08.21_PM.mp4)
+▶️ [Watch Video 2 — Project Demonstration](https://res.cloudinary.com/kz8f12pj/video/upload/v1792756686/WhatsApp_Video_2026-10-23_at_2.30.28_PM.mp4)
+
+*The demonstration video will show sensor data collection, Wi-Fi connectivity, and uploading temperature and humidity readings to Firebase Realtime Database.*
+
 ## 🎯 Objectives
 
 - Implement wireless communication using the ESP32.
